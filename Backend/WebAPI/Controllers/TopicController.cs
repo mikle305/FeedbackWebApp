@@ -15,7 +15,7 @@ public class TopicController: ControllerBase
         _db = db;
     }
 
-    [HttpGet]
+    [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll()
     {
         var topics = await _db.Topics.ToListAsync();
@@ -27,7 +27,7 @@ public class TopicController: ControllerBase
     }
     
     [HttpGet("GetInfoById")]
-    private async Task<IActionResult> GetInfoById(int id)
+    public async Task<IActionResult> GetInfoById(int id)
     {
         var topic = (await _db.Topics.ToListAsync()).FirstOrDefault(t => t.Id == id);
         if (topic == null)

@@ -16,7 +16,7 @@ public class ContactController: ControllerBase
     }
     
     [HttpGet("GetInfoById")]
-    private async Task<IActionResult> GetInfoById(int id)
+    public async Task<IActionResult> GetInfoById(int id)
     {
         var contact = (await _db.Contacts.ToListAsync()).FirstOrDefault(c => c.Id == id);
         if (contact == null)

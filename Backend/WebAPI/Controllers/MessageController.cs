@@ -48,7 +48,7 @@ public class MessageController: ControllerBase
     }
 
     [HttpGet("GetInfoById")]
-    private async Task<IActionResult> GetInfoById(int id)
+    public async Task<IActionResult> GetInfoById(int id)
     {
         var message = (await _db.Messages.ToListAsync()).FirstOrDefault(m => m.Id == id);
         if (message == null)
@@ -79,17 +79,26 @@ public class MessageController: ControllerBase
         if (contact != null) return contact.Id;
         contact = new Contact { Name = name, Email = email, PhoneNumber = phoneNumber };
         await _db.AddAsync(contact);
+        await _db.SaveChangesAsync();
         return contact.Id;
     }
 
     private Tuple<bool, string> ValidateContactInfo(string name, string email, string phoneNumber)
     {
         string emailPattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
-        string phonePattern = @"^(\+[0-9]{9})$";
+        string phonePattern = @"^(\+[0-9].{5,20})$";
         string error = string.Empty;
         var isValidName = !string.IsNullOrEmpty(name);
         var isValidEmail = Regex.Match(email, emailPattern, RegexOptions.IgnoreCase).Success;
         var isValidPhone = Regex.Match(phoneNumber, phonePattern).Success;
+        for (int i = 0; i < phoneNumber.Length; i++)
+        {
+            if (i > 0 && !char.IsDigit(phoneNumber[i]))
+            {
+                isValidPhone = false;
+                break;
+            }
+        }
         
         if (!isValidName)
             error += "Name";

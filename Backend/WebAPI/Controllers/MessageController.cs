@@ -36,17 +36,39 @@ public class MessageController: ControllerBase
                 Error = error
             });
         int contactId = await CreateContactIfNotExists(name, email, phoneNumber);
-        var message = new Message { TopicId = topicId, ContactId = contactId, Body = body, SentAt = DateTime.Now };
+        var message = new Message { TopicId = topicId, ContactId = contactId, 
+            Body = body, IsActive = true, SentAt = DateTime.Now };
         await _db.AddAsync(message);
         await _db.SaveChangesAsync();
         return Ok(new 
         {
             Success = true,
-            MessageId = message.Id,
-            message.ContactId,
-            message.TopicId,
-            MessageBody = message.Body,
-            message.SentAt
+            MessageId = message.Id
+        });
+    }
+
+    [HttpGet("GetInfoById")]
+    private async Task<IActionResult> GetInfoById(int id)
+    {
+        var message = (await _db.Messages.ToListAsync()).FirstOrDefault(m => m.Id == id);
+        if (message == null)
+            return Ok(new
+            {
+                Success = false,
+                Error = "Message with current id doesn't exist"
+            });
+        return Ok(new 
+        {
+            Success = true,
+            Message = new
+            {
+                message.Id,
+                message.TopicId,
+                message.ContactId,
+                message.Body,
+                message.IsActive,
+                message.SentAt
+            }
         });
     }
 

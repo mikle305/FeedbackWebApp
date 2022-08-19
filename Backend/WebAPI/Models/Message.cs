@@ -10,6 +10,8 @@ public class Message
     
     public string Body { get; set; }
     
+    public bool IsActive { get; set; }
+    
     public DateTime SentAt { get; set; }
     
     

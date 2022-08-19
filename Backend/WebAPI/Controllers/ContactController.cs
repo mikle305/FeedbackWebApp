@@ -6,31 +6,20 @@ namespace WebAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TopicController: ControllerBase
+public class ContactController: ControllerBase
 {
     private readonly ApplicationContext _db;
 
-    public TopicController(ApplicationContext db)
+    public ContactController(ApplicationContext db)
     {
         _db = db;
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
-        var topics = await _db.Topics.ToListAsync();
-        return Ok(new
-        {
-            Success = true,
-            Topics = topics
-        });
     }
     
     [HttpGet("GetInfoById")]
     private async Task<IActionResult> GetInfoById(int id)
     {
-        var topic = (await _db.Topics.ToListAsync()).FirstOrDefault(t => t.Id == id);
-        if (topic == null)
+        var contact = (await _db.Contacts.ToListAsync()).FirstOrDefault(c => c.Id == id);
+        if (contact == null)
             return Ok(new
             {
                 Success = false,
@@ -39,10 +28,12 @@ public class TopicController: ControllerBase
         return Ok(new 
         {
             Success = true,
-            Topic = new
+            Contact = new
             {
-                topic.Id,
-                topic.Name
+                contact.Id,
+                contact.Name,
+                contact.Email,
+                contact.PhoneNumber
             }
         });
     }

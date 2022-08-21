@@ -1,0 +1,46 @@
+<div class="w-full h-full font-bold bg-white
+  border border-2 border-gray-600 rounded
+  outline-2 hover:outline hover:bg-gray-100" [ngClass]="{segoePrintFont: true}">
+  <div class="m-3">
+    <h2>Напишите нам</h2>
+  </div>
+  <div class="flex items-stretch m-3">
+    <p class="w-1/3 whitespace-nowrap">Ваше имя:</p>
+    <input type="text" [ngClass]="{verdanaFont: true}" class="w-full border border-gray-600 rounded" name="" id="">
+  </div>
+  <div class="flex items-stretch m-3">
+    <p class="w-1/3 whitespace-nowrap">Ваш Email:</p>
+    <input type="email" [ngClass]="{verdanaFont: true}" class="w-full border border-gray-600 rounded" name="" id="">
+  </div>
+  <div class="flex items-stretch m-3">
+    <p class="w-1/3 whitespace-nowrap">Ваш телефон:</p>
+    <input type="text" [ngClass]="{verdanaFont: true}" class="w-full border border-gray-600 rounded" name="" id="">
+  </div>
+  <div class="flex items-stretch m-3">
+    <div class="w-1/4">
+      <p>Тема:</p>
+    </div>
+    <button class="w-3/4 border border-gray-600 rounded bg-white">Dropdown</button>
+  </div>
+  <div class="h-28 flex items-stretch m-3">
+    <div class="w-1/4">
+      <p>Ваше</p>
+      <p>сообщение:</p>
+    </div>
+    <div [ngClass]="{verdanaFont: true}" class="h-full w-3/4 border border-gray-600 rounded w-full" >
+      <form class="h-full w-full" action="/form/submit" type="text" name="" id="" method="get">
+        <textarea class="resize-none h-full w-full" name="text" placeholder="Enter text"></textarea>
+      </form>
+    </div>
+  </div>
+  <div class="flex items-stretch m-3">
+    <div class="w-1/4">
+      <p>Captcha:</p>
+    </div>
+    <input [ngClass]="{verdanaFont: true}" class="w-1/4 border border-gray-600 rounded" type="text" name="" id="">
+  </div>
+  <div class="flex items-center m-3">
+    <div class="w-1/4"></div>
+    <button class="w-1/3 bg-gray-200 border border-gray-600 rounded shadow hover:outline outline-2" type="submit">Отправить письмо</button>
+  </div>
+</div>
